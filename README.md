@@ -51,14 +51,10 @@ Before introducing dynamic models, the project examines classical, **static** be
 - Risk a fixed percentage of current equity per trade (e.g. 2%)
 - Position size formula (conceptually):
 
-\[
-\text{Position Size} =
-\frac{
-    \text{Equity} \times \text{Risk Fraction}
-}{
-    \text{Entry Price} - \text{Stop Loss}
-}
-\]
+**Position Size Formula**
+
+Position Size = (Equity × Risk Fraction) / (Entry Price – Stop Loss)
+
 
 
 - Pros:
