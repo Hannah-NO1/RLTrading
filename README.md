@@ -52,9 +52,9 @@ Before introducing dynamic models, the project examines classical, **static** be
 - Position size formula (conceptually):
 
 **Position Size Formula**
-
+```bash
 Position Size = (Equity × Risk Fraction) / (Entry Price – Stop Loss)
-
+```
 
 
 - Pros:
@@ -64,16 +64,19 @@ Position Size = (Equity × Risk Fraction) / (Entry Price – Stop Loss)
   - Treats all signals equally, even if the recent environment has changed
 
 ### 3.2 Kelly Criterion
-
+```bash
 f* = W − (1 − W) / R
 
 - \( W \): win probability  
 - \( R \): payoff ratio (average win / average loss)
+```
 
 Example: with \( W = 0.3 \), \( R = 3 \):
 
+```bash
 f* = 0.3 − (0.7 / 3)
 f* ≈ 0.067  → about 6.7% of equity
+```
 
 
 - Pros:
