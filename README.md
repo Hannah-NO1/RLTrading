@@ -52,8 +52,14 @@ Before introducing dynamic models, the project examines classical, **static** be
 - Position size formula (conceptually):
 
 \[
-\text{Position Size} = \frac{\text{Equity} \times \text{Risk Fraction}}{\text{Entry Price} - \text{Stop Loss}}
+\text{Position Size} =
+\frac{
+    \text{Equity} \times \text{Risk Fraction}
+}{
+    \text{Entry Price} - \text{Stop Loss}
+}
 \]
+
 
 - Pros:
   - Built-in drawdown protection (risk shrinks as equity shrinks)
