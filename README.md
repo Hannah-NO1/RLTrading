@@ -1,142 +1,96 @@
-Reinforcement Learning–Based Daily Trading Decision System
-(Paper-Trading Mode with Position Sizing, Logging, and Daily Automation)
+# Reinforcement Learning–Based Daily Trading Decision System  
+### (Paper-Trading Mode with Dynamic Position Sizing, Logging, and Daily Automation)
 
-This project implements a reinforcement-learning (PPO)–based system that generates one trading decision per day and logs all results for later quantitative analysis.
+This project implements a reinforcement-learning (PPO)–based system that generates **one trading recommendation per day**, applies **dynamic position sizing**, and saves all results to CSV for later analysis.  
+All decisions are **paper mode only** — no real trades are executed.
 
-The system does not execute any real trades.
-It only computes daily recommended actions and saves them for research.
+---
 
-📁 Project Overview
-1. Purpose
+## 📁 Project Overview
 
-Generate daily trading decisions (BUY / SELL / HOLD) using a trained RL model
+### **Purpose**
+- Generate daily trading actions using a trained RL model  
+- Apply performance-based dynamic position sizing  
+- Log all decisions in CSV format  
+- Enable future analysis comparing **AI decisions vs. Human decisions**
 
-Integrate dynamic position sizing based on recent performance (rolling win rate)
+This system is designed for research and experimentation.
 
-Log all results to daily CSV files for further analysis
+---
 
-Provide a foundation for comparing RL-based decisions with human trades
+## 📚 Key Features
 
-📚 Key Features
-✔ 1) Decision-making using a trained PPO model
+### ✔ 1. Daily Trading Decision (Using PPO Model)
+The system loads the trained PPO model stored under:
 
-Loads a pre-trained policy from models/.../model.zip
 
-Uses a fixed 32-dimensional observation vector
+models/.../model.zip
+Daily execution includes:
+1. Fetching the latest market data  
+2. Constructing a fixed 32-dimensional observation  
+3. Predicting an action from the RL agent  
+   - `0 = HOLD`  
+   - `1 = BUY`  
+   - `2 = SELL`  
+4. Outputting the final recommended position
 
-Computes one action per day
+Only one decision per day.
 
-✔ 2) Daily automatic execution
+---
 
-Script: live_trading_googl_once.py
+### ✔ 2. Dynamic Position Sizing  
+Implemented using the **WinRatioModulatedSizer**:
+- Uses rolling win ratio  
+- Sigmoid-based risk scaling  
+- Dynamic leverage adjustments  
+- Outputs:
+  - maximum recommended position size  
+  - dynamic risk fraction  
+  - leverage multiplier  
 
-Designed to run once per day, not continuously
+This stabilizes risk and provides more realistic trading recommendations.
 
-Fetches the latest market data
+---
 
-Builds the observation
+### ✔ 3. Daily CSV Logging
 
-Runs the RL model
+Every execution produces:
 
-Runs position sizing
+Each row logs:
+- timestamp  
+- symbol  
+- current price  
+- action (buy/sell/hold)  
+- position before/after  
+- trade size  
+- equity before/after  
+- max position  
+- leverage  
+- rolling win ratio  
+- dynamic risk fraction  
 
-Produces the final recommended target position
+This makes post-analysis simple and reliable.
 
-Saves all results in a daily log
+---
 
-Actions:
+### ✔ 4. AI vs. Human Decision Comparison
 
-0 → HOLD
+Because the system logs all AI-generated decisions,  
+a human trader can also record their daily actions.
 
-1 → BUY
+Later comparisons may include:
+- Differences in action choice  
+- PnL comparison  
+- Position sizing differences  
+- Equity curve comparison  
+- Behavioral patterns  
 
-2 → SELL
+This project is suitable for quantitative behavior analysis.
 
-✔ 3) Dynamic Position Sizing
+---
 
-Module: WinRatioModulatedSizer
+## 📂 Project Structure
 
-This component calculates:
-
-Maximum recommended position size (max_position_size)
-
-Dynamic risk fraction (based on a sigmoid of rolling win rate)
-
-Dynamic leverage
-
-Target position based on RL output + risk model
-
-This makes the RL output more realistic by controlling risk exposure.
-
-✔ 4) Daily CSV Logging
-
-Every daily run generates a CSV file:
-
-Format example:
-
-logs/live_trading_2025-11-22.csv
-
-
-Each row contains:
-
-UTC timestamp
-
-Symbol
-
-Mode (paper)
-
-Price
-
-Action (HOLD / BUY / SELL)
-
-Position before
-
-Position after
-
-Trade size
-
-Equity before
-
-Equity after
-
-Max position size
-
-Leverage
-
-Rolling win rate
-
-Dynamic risk fraction
-
-These logs can later be used for analysis and visualization.
-
-✔ 5) Framework for Human vs AI Decision Comparison
-
-This system produces:
-
-AI’s target positions
-
-AI’s recommended trades
-
-Daily equity curves
-
-RL risk parameters
-
-A human trader can log their own trades.
-Later both datasets can be compared:
-
-Differences in timing
-
-Differences in number of shares
-
-Divergence in risk exposure
-
-Performance comparison
-
-Behavioral differences
-
-This provides a strong foundation for research on human vs AI decision-making.
-
-📂 Project Structure
 rl-trading-googl/
 │
 ├── models/
@@ -154,78 +108,49 @@ rl-trading-googl/
 │
 └── README.md
 
-🚀 Automating Daily Execution on macOS
-Step 1 — Create an Automator Application
 
-Open Automator
 
-Choose Application
+---
 
-Insert a Run Shell Script action
+## 🚀 Daily Automation (macOS)
 
-Add:
+### **1. Create an Automator App**
 
+1. Open **Automator**  
+2. Choose **Application**  
+3. Add **Run Shell Script**  
+4. Insert:
+
+```bash
 cd /Users/yourname/Documents/rl-trading-googl
 source .venv/bin/activate
 python -m src.trading_rl.live_trading_googl_once
 
 
-Save as:
-RL_Daily_Trading.app
+📊 Data Analysis
 
-Step 2 — Use Calendar to run it daily
+To analyze logged data:
+import pandas as pd
 
-Open Calendar
+df = pd.read_csv("logs/live_trading_2025-11-22.csv")
+print(df.head())
 
-Create an event at your chosen time
 
-Click Alert → Custom → Open file
+Daily action patterns
 
-Choose the Automator app
+Position/equity changes
 
-Now the system runs automatically at that time each day (as long as your Mac is awake).
+AI vs. human divergence
 
-📈 Example Output
-===== RL Daily Decision Report =====
-Time (UTC):        2025-11-22 03:29:07
-Symbol:            GOOGL
-Current Price:     299.66 USD
-Current Position:  34 shares
-Current Equity:    10304.03 USD
+A notebook can be added later for full analysis.
 
-RL Action:         BUY (raw=1)
-Sizer max_pos:     5 shares (leverage=1.71)
-Target Position:   34 shares
-Trade Size:        +0 shares
-
-Equity Before/After: 10304.03 → 10304.03
-rolling_win_ratio = 0.500
-dynamic_risk_fraction = 0.0265
-====================================
-
-🔍 Research Possibilities
-
-With the daily logs, you can analyze:
-
-Tracking human vs AI position curves
-
-Daily PnL comparison
-
-Risk exposure differences
-
-Trade frequency differences
-
-Equity curve visualization
-
-Rolling statistics (Sharpe, drawdown, leverage usage)
-
-🛠 Dependencies
-pip install stable-baselines3 gymnasium yfinance numpy pandas matplotlib joblib
 
 📌 Notes
 
-This project is for research and paper-trading simulation only.
+This system does not execute real trades
 
-No real orders are executed.
+All decisions are for paper trading only
 
-The system has been designed to run once per day and record all decisions.
+Designed entirely for research and academic purposes
+
+Daily outputs are fully logged for reproducibility
