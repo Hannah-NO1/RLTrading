@@ -125,16 +125,18 @@ rl-trading-googl/
 cd /Users/yourname/Documents/rl-trading-googl
 source .venv/bin/activate
 python -m src.trading_rl.live_trading_googl_once
-
+```
 
 📊 Data Analysis
 
 To analyze logged data:
+
+```bash
 import pandas as pd
 
 df = pd.read_csv("logs/live_trading_2025-11-22.csv")
 print(df.head())
-
+```
 
 Daily action patterns
 
@@ -154,3 +156,6 @@ All decisions are for paper trading only
 Designed entirely for research and academic purposes
 
 Daily outputs are fully logged for reproducibility
+
+
+
