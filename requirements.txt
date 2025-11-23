@@ -1,0 +1,6 @@
+numpy
+pandas
+matplotlib
+gym
+stable-baselines3
+shimmy>=2.0

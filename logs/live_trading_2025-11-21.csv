@@ -1,0 +1,2 @@
+timestamp_utc,symbol,mode,price,action,position_before,position_after,trade_size,equity_before,equity_after,max_position_size,leverage,rolling_win_ratio,dynamic_risk_fraction
+2025-11-21T03:31:56.200788+00:00,GOOGL,daily_once,289.45001220703125,2,34,0,-34,10304.03,10304.03,5,1.7149289879502572,0.5,0.02652453153562047
