@@ -67,8 +67,8 @@ Position Size = (Equity × Risk Fraction) / (Entry Price – Stop Loss)
 ```bash
 f* = W − (1 − W) / R
 
-- \( W \): win probability  
-- \( R \): payoff ratio (average win / average loss)
+- W : win probability  
+- R : payoff ratio (average win / average loss)
 ```
 
 Example: with \( W = 0.3 \), \( R = 3 \):
