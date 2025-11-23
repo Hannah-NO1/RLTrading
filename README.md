@@ -138,24 +138,7 @@ df = pd.read_csv("logs/live_trading_2025-11-22.csv")
 print(df.head())
 ```
 
-Daily action patterns
 
-Position/equity changes
-
-AI vs. human divergence
-
-A notebook can be added later for full analysis.
-
-
-📌 Notes
-
-This system does not execute real trades
-
-All decisions are for paper trading only
-
-Designed entirely for research and academic purposes
-
-Daily outputs are fully logged for reproducibility
 
 
 
