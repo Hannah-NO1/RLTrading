@@ -90,7 +90,7 @@ This project is suitable for quantitative behavior analysis.
 ---
 
 ## 📂 Project Structure
-
+```bash
 rl-trading-googl/
 │
 ├── models/
@@ -107,7 +107,7 @@ rl-trading-googl/
 │       └── live_trading_googl.py          # Real-time loop (legacy)
 │
 └── README.md
-
+```
 
 
 ---
