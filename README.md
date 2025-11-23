@@ -63,18 +63,16 @@ Before introducing dynamic models, the project examines classical, **static** be
 
 ### 3.2 Kelly Criterion
 
-\[
-f^\* = W - \frac{1 - W}{R}
-\]
+f* = W − (1 − W) / R
 
 - \( W \): win probability  
 - \( R \): payoff ratio (average win / average loss)
 
 Example: with \( W = 0.3 \), \( R = 3 \):
 
-\[
-f^\* \approx 6.7\% \text{ of equity}
-\]
+f* = 0.3 − (0.7 / 3)
+f* ≈ 0.067  → about 6.7% of equity
+
 
 - Pros:
   - Theoretically maximizes long-term geometric growth
